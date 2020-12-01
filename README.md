@@ -6,5 +6,5 @@
 
 ### Архитектура базы данных
 <p align="center">
-  <img src="Assets/DatabaseModel.png" alt="Диаграмма архитектуры БД" width="100%" height="auto" />
+  <img src="Assets/DatabaseModel.jpg" alt="Диаграмма архитектуры БД" width="100%" height="auto" />
 </p>
