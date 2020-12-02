@@ -1,11 +1,14 @@
 package com.eshop.dao;
 
+import org.apache.log4j.Logger;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DbConnectionPool {
     private static DbConnectionPool instance = null;
@@ -34,5 +37,15 @@ public class DbConnectionPool {
         }
 
         return connection;
+    }
+
+    public static void closeStatement(Statement statement, Logger logger) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException ex) {
+                logger.error("There are problems with statement closing: " + ex.getLocalizedMessage());
+            }
+        }
     }
 }
