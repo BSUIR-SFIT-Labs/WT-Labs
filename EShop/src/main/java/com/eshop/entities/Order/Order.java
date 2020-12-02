@@ -1,54 +1,40 @@
 package com.eshop.entities.Order;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Order {
-    private Integer id;
-    private Integer userId;
-    private List<OrderItem> orderItems;
+    private int id;
+    private int userId;
     private LocalDate orderDate;
-    private Integer orderStatusId;
+    private int orderStatusId;
 
-    public Order(Integer id, Integer userId, List<OrderItem> orderItems,
-                 LocalDate orderDate, Integer orderStatusId) {
+    public Order(int id, int userId, LocalDate orderDate, int orderStatusId) {
         this.id = id;
         this.userId = userId;
-        this.orderItems = orderItems;
         this.orderDate = orderDate;
         this.orderStatusId = orderStatusId;
     }
 
-    public Order(Integer userId, List<OrderItem> orderItems,
-                 LocalDate orderDate, Integer orderStatusId) {
+    public Order(int userId, LocalDate orderDate, int orderStatusId) {
         this.userId = userId;
-        this.orderItems = orderItems;
         this.orderDate = orderDate;
         this.orderStatusId = orderStatusId;
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
     }
 
     public LocalDate getOrderDate() {
@@ -59,11 +45,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Integer getOrderStatusId() {
+    public int getOrderStatusId() {
         return orderStatusId;
     }
 
-    public void setOrderStatusId(Integer orderStatusId) {
+    public void setOrderStatusId(int orderStatusId) {
         this.orderStatusId = orderStatusId;
     }
 }

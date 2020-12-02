@@ -1,39 +1,32 @@
 package com.eshop.entities.UserAccount;
 
-import java.util.List;
-
 public class User {
-    private Integer id;
+    private int id;
     private String email;
     private String passwordHash;
     private String firstName;
     private String lastName;
-    private List<UserRole> userRoles;
 
-    public User(Integer id, String email, String passwordHash, String firstName,
-                String lastName, List<UserRole> userRoles) {
+    public User(int id, String email, String passwordHash, String firstName, String lastName) {
         this.id = id;
         this.email = email;
         this.passwordHash = passwordHash;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userRoles = userRoles;
     }
 
-    public User(String email, String passwordHash, String firstName,
-                String lastName, List<UserRole> userRoles) {
+    public User(String email, String passwordHash, String firstName, String lastName) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userRoles = userRoles;
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,13 +60,5 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<UserRole> getUserRoles() {
-        return this.userRoles;
-    }
-
-    public void setUserRoles(List<UserRole> userRoles) {
-        this.userRoles = userRoles;
     }
 }

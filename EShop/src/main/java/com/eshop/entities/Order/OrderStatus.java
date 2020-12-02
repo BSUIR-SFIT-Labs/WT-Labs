@@ -1,34 +1,34 @@
 package com.eshop.entities.Order;
 
 public class OrderStatus {
-    private Integer id;
-    private Integer statusCode;
+    private int id;
+    private int statusCode;
     private String description;
 
-    public OrderStatus(Integer id, Integer statusCode, String description) {
+    public OrderStatus(int id, int statusCode, String description) {
         this.id = id;
         this.statusCode = statusCode;
         this.description = description;
     }
 
-    public OrderStatus(Integer statusCode, String description) {
+    public OrderStatus(int statusCode, String description) {
         this.statusCode = statusCode;
         this.description = description;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getStatusCode() {
+    public int getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(Integer statusCode) {
+    public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 

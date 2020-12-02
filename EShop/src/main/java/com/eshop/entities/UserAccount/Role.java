@@ -1,10 +1,10 @@
 package com.eshop.entities.UserAccount;
 
 public class Role {
-    private Integer id;
+    private int id;
     private String name;
 
-    public Role(Integer id, String name) {
+    public Role(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -13,11 +13,11 @@ public class Role {
         this.name = name;
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
