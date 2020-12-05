@@ -1,7 +1,6 @@
 package com.eshop.entities.Order;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
 public class Order {
     private int id;
