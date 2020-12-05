@@ -15,7 +15,7 @@ public class ProductDaoImpl implements ProductDao {
     private final Logger logger = Logger.getLogger(ProductDaoImpl.class);
     private final Connection connection;
 
-    public ProductDaoImpl(Connection connection) {
+    public ProductDaoImpl() {
         this.connection = DbConnectionPool.getInstance().getConnection();
     }
 

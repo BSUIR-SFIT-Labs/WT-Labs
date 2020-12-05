@@ -17,7 +17,7 @@ public class RoleDaoImpl implements RoleDao {
     private final Logger logger = Logger.getLogger(RoleDao.class);
     private final Connection connection;
 
-    public RoleDaoImpl(Connection connection) {
+    public RoleDaoImpl() {
         this.connection = DbConnectionPool.getInstance().getConnection();
     }
 

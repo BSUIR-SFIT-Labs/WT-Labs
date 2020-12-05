@@ -17,7 +17,7 @@ public class OrderStatusDaoImpl implements OrderStatusDao {
     private final Logger logger = Logger.getLogger(OrderStatusDaoImpl.class);
     private final Connection connection;
 
-    public OrderStatusDaoImpl(Connection connection) {
+    public OrderStatusDaoImpl() {
         this.connection = DbConnectionPool.getInstance().getConnection();
     }
 
