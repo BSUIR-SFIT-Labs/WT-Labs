@@ -1,21 +1,22 @@
 package com.eshop.entities.Order;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class Order {
     private int id;
     private int userId;
-    private LocalDate orderDate;
+    private Timestamp orderDate;
     private int orderStatusId;
 
-    public Order(int id, int userId, LocalDate orderDate, int orderStatusId) {
+    public Order(int id, int userId, Timestamp orderDate, int orderStatusId) {
         this.id = id;
         this.userId = userId;
         this.orderDate = orderDate;
         this.orderStatusId = orderStatusId;
     }
 
-    public Order(int userId, LocalDate orderDate, int orderStatusId) {
+    public Order(int userId, Timestamp orderDate, int orderStatusId) {
         this.userId = userId;
         this.orderDate = orderDate;
         this.orderStatusId = orderStatusId;
@@ -37,11 +38,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public LocalDate getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDate orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
 
