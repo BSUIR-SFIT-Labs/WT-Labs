@@ -70,6 +70,30 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getOrdersByUserId(int userId) {
+        List<Order> orders = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            String query = "SELECT * FROM orders WHERE user_id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            orders = parseToList(resultSet);
+        } catch (Exception ex) {
+            String errorMessage = "There are problems with getting order by user_id: " + ex.getLocalizedMessage();
+
+            logger.error(errorMessage);
+            throw new DaoException(errorMessage);
+        } finally {
+            DbConnectionPool.closeStatement(preparedStatement, logger);
+        }
+
+        return orders;
+    }
+
+    @Override
     public void add(Order order) throws DaoException {
         PreparedStatement preparedStatement = null;
 
