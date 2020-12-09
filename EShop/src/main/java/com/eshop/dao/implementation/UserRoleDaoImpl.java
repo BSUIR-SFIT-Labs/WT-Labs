@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRoleDaoImpl implements UserRoleDao {
-    private final Logger logger = Logger.getLogger(UserRoleDao.class);
+    private final Logger logger = Logger.getLogger(UserRoleDaoImpl.class);
     private final Connection connection;
 
     public UserRoleDaoImpl() {
@@ -67,6 +67,30 @@ public class UserRoleDaoImpl implements UserRoleDao {
         }
 
         return userRole;
+    }
+
+    @Override
+    public List<UserRole> getByUserId(int userId) {
+        List<UserRole> userRoles = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            String query = "SELECT * FROM user_roles WHERE user_id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            userRoles = parseToList(resultSet);
+        } catch (Exception ex) {
+            String errorMessage = "There are problems with getting user_roles by user_id: " + ex.getLocalizedMessage();
+
+            logger.error(errorMessage);
+            throw new DaoException(errorMessage);
+        } finally {
+            DbConnectionPool.closeStatement(preparedStatement, logger);
+        }
+
+        return userRoles;
     }
 
     @Override

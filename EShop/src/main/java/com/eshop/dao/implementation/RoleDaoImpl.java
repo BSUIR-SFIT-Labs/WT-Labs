@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDaoImpl implements RoleDao {
-    private final Logger logger = Logger.getLogger(RoleDao.class);
+    private final Logger logger = Logger.getLogger(RoleDaoImpl.class);
     private final Connection connection;
 
     public RoleDaoImpl() {
