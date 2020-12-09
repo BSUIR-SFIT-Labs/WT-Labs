@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RoleService {
     List<Role> getUserRoles(int userId) throws ServiceException;
+
+    int addUserToRole(int userId, int roleId) throws ServiceException;
 }

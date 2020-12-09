@@ -1,5 +1,6 @@
 package com.eshop.services.implementation;
 
+import com.eshop.dao.exception.DaoException;
 import com.eshop.dao.factory.DaoFactory;
 import com.eshop.dao.interfaces.UserDao;
 import com.eshop.entities.UserAccount.User;
@@ -35,7 +36,14 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(errorMessage);
         }
 
-        User user = userDao.getUserByEmail(email);
+        User user = null;
+
+        try {
+            user = userDao.getUserByEmail(email);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex.getLocalizedMessage());
+        }
+
         String passwordHash = HashUtility.getHash(password);
 
         if (user == null || user.getPasswordHash() != passwordHash) {
@@ -46,8 +54,52 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signUp(User user) throws ServiceException {
+    public int signUp(String email, String password, String firstName, String lastName) throws ServiceException {
+        if (!isValidEmail(email)) {
+            String errorMessage = "Invalid email.";
 
+            logger.error(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+
+        if (password == null || password.isEmpty()) {
+            String errorMessage = "Invalid password.";
+
+            logger.error(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+
+        if (firstName == null || firstName.isEmpty()) {
+            String errorMessage = "Invalid firstName.";
+
+            logger.error(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+
+        if (lastName == null || lastName.isEmpty()) {
+            String errorMessage = "Invalid lastName.";
+
+            logger.error(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+
+        if (userDao.getUserByEmail(email) != null) {
+            String errorMessage = "This user already exists.";
+
+            logger.error(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+
+        String passwordHash = HashUtility.getHash(password);
+        User user = new User(email, passwordHash, firstName, lastName);
+
+        try {
+            userDao.add(user);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex.getLocalizedMessage());
+        }
+
+        return userDao.getUserByEmail(email).getId();
     }
 
     @Override

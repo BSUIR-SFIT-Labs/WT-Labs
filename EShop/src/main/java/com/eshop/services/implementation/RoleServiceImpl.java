@@ -1,5 +1,6 @@
 package com.eshop.services.implementation;
 
+import com.eshop.dao.exception.DaoException;
 import com.eshop.dao.factory.DaoFactory;
 import com.eshop.dao.interfaces.RoleDao;
 import com.eshop.dao.interfaces.UserRoleDao;
@@ -33,13 +34,45 @@ public class RoleServiceImpl implements RoleService {
         }
 
         List<Role> roles = new ArrayList<Role>();
+        List<UserRole> userRoles = null;
 
-        List<UserRole> userRoles = userRoleDao.getByUserId(userId);
+        try {
+            userRoles = userRoleDao.getByUserId(userId);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex.getLocalizedMessage());
+        }
 
         for (UserRole userRole: userRoles) {
             roles.add(roleDao.getById(userRole.getRoleId()));
         }
 
         return roles;
+    }
+
+    @Override
+    public int addUserToRole(int userId, int roleId) throws ServiceException {
+        if (userId <= 0) {
+            String errorMessage = userId + " - invalid user id.";
+
+            logger.error(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+
+        if (roleId <= 0) {
+            String errorMessage = userId + " - invalid role id.";
+
+            logger.error(errorMessage);
+            throw new ServiceException(errorMessage);
+        }
+
+        UserRole userRole = new UserRole(userId, roleId);
+
+        try {
+            userRoleDao.add(userRole);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex.getLocalizedMessage());
+        }
+
+        return userRoleDao.getByUserId(userId).get(0).getId();
     }
 }
