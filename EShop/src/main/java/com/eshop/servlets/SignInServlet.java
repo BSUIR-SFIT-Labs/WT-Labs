@@ -2,6 +2,7 @@ package com.eshop.servlets;
 
 import com.eshop.entities.UserAccount.Role;
 import com.eshop.entities.UserAccount.User;
+import com.eshop.services.exception.ServiceException;
 import com.eshop.services.factory.ServiceFactory;
 import com.eshop.services.interfaces.RoleService;
 import com.eshop.services.interfaces.UserService;
@@ -22,7 +23,7 @@ public class SignInServlet extends HttpServlet {
 
     public SignInServlet() {
         this.userService = ServiceFactory.getInstance().getUserService();
-        roleService = ServiceFactory.getInstance().getRoleService();
+        this.roleService = ServiceFactory.getInstance().getRoleService();
     }
 
     @Override
@@ -51,19 +52,22 @@ public class SignInServlet extends HttpServlet {
         String errorMessage = null;
 
         String email = req.getParameter("email");
-        String pass = req.getParameter("password");
+        String password = req.getParameter("password");
 
-        User user = userService.signIn(email, pass);
+        try {
+            User user = userService.signIn(email, password);
 
-        if (user != null) {
-            HttpSession httpSession = req.getSession();
-            httpSession.setAttribute("userId", user.getId());
+            if (user != null) {
+                HttpSession httpSession = req.getSession();
+                httpSession.setAttribute("userId", user.getId());
 
-            List<Role> userRoles = roleService.getUserRoles(user.getId());
-            httpSession.setAttribute("roles", userRoles);
-        }
-        else {
-            errorMessage = "User '" + email + "' not found!";
+                List<Role> userRoles = roleService.getUserRoles(user.getId());
+                httpSession.setAttribute("roles", userRoles);
+            } else {
+                errorMessage = "User '" + email + "' not found!";
+            }
+        } catch (ServiceException ex) {
+            errorMessage = "Incorrect data entered.";
         }
 
         req.setAttribute("error_message", errorMessage);
