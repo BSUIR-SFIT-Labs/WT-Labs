@@ -102,11 +102,6 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserByEmail(email).getId();
     }
 
-    @Override
-    public void signOut(String email) throws ServiceException {
-
-    }
-
     private static boolean isValidEmail(String email) {
         String emailPatternStr = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern emailPattern = Pattern.compile(emailPatternStr);
