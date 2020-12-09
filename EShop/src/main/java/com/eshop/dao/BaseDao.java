@@ -1,7 +1,6 @@
 package com.eshop.dao;
 
 import com.eshop.dao.exception.DaoException;
-import com.eshop.entities.UserAccount.User;
 
 import java.sql.ResultSet;
 import java.util.List;

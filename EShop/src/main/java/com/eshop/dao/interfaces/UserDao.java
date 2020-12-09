@@ -5,5 +5,5 @@ import com.eshop.dao.exception.DaoException;
 import com.eshop.entities.UserAccount.User;
 
 public interface UserDao extends BaseDao<User> {
-    public User getUserByEmail(String email);
+    public User getUserByEmail(String email) throws DaoException;
 }
