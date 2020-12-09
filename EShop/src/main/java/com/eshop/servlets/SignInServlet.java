@@ -1,13 +1,10 @@
 package com.eshop.servlets;
 
-import com.eshop.dao.factory.DaoFactory;
-import com.eshop.dao.interfaces.UserDao;
 import com.eshop.entities.UserAccount.Role;
 import com.eshop.entities.UserAccount.User;
 import com.eshop.services.factory.ServiceFactory;
 import com.eshop.services.interfaces.RoleService;
 import com.eshop.services.interfaces.UserService;
-import com.eshop.utils.HashUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +51,7 @@ public class SignInServlet extends HttpServlet {
         String errorMessage = null;
 
         String email = req.getParameter("email");
-        String pass = req.getParameter("pass");
+        String pass = req.getParameter("password");
 
         User user = userService.signIn(email, pass);
 
@@ -65,8 +62,11 @@ public class SignInServlet extends HttpServlet {
             List<Role> userRoles = roleService.getUserRoles(user.getId());
             httpSession.setAttribute("roles", userRoles);
         }
+        else {
+            errorMessage = "User '" + email + "' not found!";
+        }
 
-        req.setAttribute("errmsg", errorMessage);
+        req.setAttribute("error_message", errorMessage);
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 }
