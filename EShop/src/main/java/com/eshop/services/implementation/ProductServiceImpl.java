@@ -91,7 +91,6 @@ public class ProductServiceImpl implements ProductService {
         return product.getId();
     }
 
-
     @Override
     public void deleteProduct(int productId) throws ServiceException {
         if (productId <= 0) {
