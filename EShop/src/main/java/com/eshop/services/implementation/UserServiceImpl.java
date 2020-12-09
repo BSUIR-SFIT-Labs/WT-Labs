@@ -7,9 +7,9 @@ import com.eshop.services.exception.ServiceException;
 import com.eshop.services.interfaces.UserService;
 import com.eshop.utils.HashUtility;
 import org.apache.log4j.Logger;
-//import sun.jvm.hotspot.debugger.AddressException;
 
-import javax.mail.internet.InternetAddress;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
     private final Logger logger = Logger.getLogger(UserServiceImpl.class);
@@ -56,15 +56,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private static boolean isValidEmail(String email) {
-        boolean isValidEmail = true;
+        String emailPatternStr = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Pattern emailPattern = Pattern.compile(emailPatternStr);
 
-        /*try {
-            InternetAddress emailAddress = new InternetAddress(email);
-            emailAddress.validate();
-        } catch (AddressException | javax.mail.internet.AddressException ex) {
-            isValidEmail = false;
-        }*/
+        Matcher matcher = emailPattern.matcher(email);
 
-        return isValidEmail;
+        return matcher.matches();
     }
 }
